@@ -3,14 +3,19 @@ package com.example.movieappcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.*
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.movieappcompose.ui.theme.MovieAppComposeTheme
@@ -41,9 +46,37 @@ class MainActivity : ComponentActivity() {
         Column(modifier=Modifier.padding(12.dp)) {
             LazyColumn {
                 items(items = moviesList){
-                    Text(text = it)
+                    MovieRow(it)
                 }
             }
+        }
+    }
+
+    @Composable
+    fun MovieRow(movieName: String) {
+        Card(
+            shape = RoundedCornerShape(corner = CornerSize(15.dp)),
+            elevation = 10.dp,
+            modifier = Modifier
+                .padding(15.dp)
+                .fillMaxWidth()
+                .height(200.dp)
+        ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    Surface(
+                        shape = RectangleShape,
+                        elevation = 5.dp,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(10.dp)
+                    ) {
+                        Icon(imageVector = Icons.Default.AccountBox, contentDescription = "MoviePic")
+                    }
+                    Text(text = movieName)
+                }
         }
     }
 
