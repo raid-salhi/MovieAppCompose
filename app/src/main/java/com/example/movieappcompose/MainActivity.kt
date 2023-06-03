@@ -1,8 +1,10 @@
 package com.example.movieappcompose
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.lazy.LazyColumn
@@ -46,21 +48,26 @@ class MainActivity : ComponentActivity() {
         Column(modifier=Modifier.padding(12.dp)) {
             LazyColumn {
                 items(items = moviesList){
-                    MovieRow(it)
+                    MovieRow(it){
+                        Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
     }
 
     @Composable
-    fun MovieRow(movieName: String) {
+    fun MovieRow(movieName: String,onItemClick : (String) -> Unit ) {
         Card(
             shape = RoundedCornerShape(corner = CornerSize(15.dp)),
             elevation = 10.dp,
             modifier = Modifier
                 .padding(15.dp)
                 .fillMaxWidth()
-                .height(200.dp)
+                .wrapContentHeight()
+                .clickable {
+                    onItemClick(movieName)
+                }
         ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
