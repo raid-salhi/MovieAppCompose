@@ -3,8 +3,11 @@ package com.example.movieappcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,9 +33,17 @@ class MainActivity : ComponentActivity() {
         )
     }
     @Composable
-    fun MainContent(modifier: Modifier){
-        Surface(color = MaterialTheme.colors.background) {
-            Greeting(name = "Said", modifier =modifier )
+    fun MainContent(
+        modifier: Modifier,
+        moviesList : List<String> = listOf("Avatar","Spidey","Jhon","The wick")
+    )
+    {
+        Column(modifier=Modifier.padding(12.dp)) {
+            LazyColumn {
+                items(items = moviesList){
+                    Text(text = it)
+                }
+            }
         }
     }
 
