@@ -20,7 +20,7 @@ fun MovieNaviagtion(){
             route=MovieScreens.DetailsScreen.name+"/{movie}",
             arguments = listOf(navArgument("movie") { type = NavType.StringType })
         ){
-            DetailsScreen(navController,it.arguments?.get("movie"))
+            DetailsScreen(navController,it.arguments?.getString("movie"))
         }
     }
 }

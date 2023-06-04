@@ -45,7 +45,7 @@ fun MovieRow(movie: Movie = getMovies()[0], onItemClick : (String) -> Unit ={}) 
             .fillMaxWidth()
             .wrapContentHeight()
             .clickable {
-                onItemClick(movie.title)
+                onItemClick(movie.id)
             }
     ) {
         Row(
@@ -61,7 +61,7 @@ fun MovieRow(movie: Movie = getMovies()[0], onItemClick : (String) -> Unit ={}) 
             ) {
                 Image(
                     painter = rememberImagePainter(
-                        data = movie.poster,
+                        data = movie.images[0],
                         builder = {
                             crossfade(true)
                             transformations(CircleCropTransformation())
@@ -78,12 +78,13 @@ fun MovieRow(movie: Movie = getMovies()[0], onItemClick : (String) -> Unit ={}) 
             ) {
                 Text(
                     text = movie.title,
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.h6,
+                    fontWeight = FontWeight.Bold
                 )
-                Text(text = movie.year, style = MaterialTheme.typography.caption)
-                Text(text = movie.director,style = MaterialTheme.typography.caption)
+                Text(text = "Year : ${movie.year}", style = MaterialTheme.typography.caption)
+                Text(text = "Director : ${movie.director}",style = MaterialTheme.typography.caption)
                 AnimatedVisibility(visible = isExpanded) {
-                    Column() {
+                    Column {
                         Text(buildAnnotatedString {
                             withStyle(style = SpanStyle(color = Color.Gray, fontSize = 12.sp)){
                                 append("Plot : ")
@@ -93,6 +94,13 @@ fun MovieRow(movie: Movie = getMovies()[0], onItemClick : (String) -> Unit ={}) 
                             }
 
                         })
+                        Spacer(modifier = Modifier.height(3.dp))
+                        Divider(
+                            thickness = 1.dp,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Text(text = "Rating : ${movie.rating}", style = MaterialTheme.typography.caption)
+                        Text(text = "Actors : ${movie.actors}",style = MaterialTheme.typography.caption)
                     }
                 }
 
