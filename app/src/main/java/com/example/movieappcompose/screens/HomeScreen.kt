@@ -14,9 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.movieappcompose.model.Movie
+import com.example.movieappcompose.model.getMovies
 import com.example.movieappcompose.navigation.MovieScreens
+import com.example.movieappcompose.widget.MovieRow
 
 @Composable
 fun HomeScreen(
@@ -36,7 +40,7 @@ fun HomeScreen(
 @Composable
 fun MainContent(
     modifier: Modifier,
-    moviesList : List<String> = listOf("Avatar","Spidey","Jhon","The wick"),
+    moviesList : List<Movie> = getMovies(),
     navController: NavController
 )
 {
@@ -47,37 +51,6 @@ fun MainContent(
                     navController.navigate(route = MovieScreens.DetailsScreen.name+"/$it")
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun MovieRow(movieName: String,onItemClick : (String) -> Unit ) {
-    Card(
-        shape = RoundedCornerShape(corner = CornerSize(15.dp)),
-        elevation = 10.dp,
-        modifier = Modifier
-            .padding(15.dp)
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .clickable {
-                onItemClick(movieName)
-            }
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Surface(
-                shape = RectangleShape,
-                elevation = 5.dp,
-                modifier = Modifier
-                    .size(100.dp)
-                    .padding(10.dp)
-            ) {
-                Icon(imageVector = Icons.Default.AccountBox, contentDescription = "MoviePic")
-            }
-            Text(text = movieName)
         }
     }
 }
